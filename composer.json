@@ -10,11 +10,12 @@
         "spryker/publisher-extension": "^1.0.0",
         "spryker/storage": "^3.19.2",
         "spryker/store": "^1.16.1",
+        "spryker/synchronization-behavior": "^1.0.0",
         "spryker/synchronization-extension": "^1.2.0"
     },
     "require-dev": {
         "spryker/code-sniffer": "*",
-        "spryker/testify": "*"
+        "spryker/propel-orm": "*"
     },
     "autoload": {
         "psr-4": {
@@ -39,5 +40,8 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "suggest": {
+        "spryker/propel-orm": "ADD SUGGEST DESCRIPTION"
     }
 }
