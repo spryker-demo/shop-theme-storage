@@ -1,0 +1,43 @@
+{
+    "name": "spryker-demo/shop-theme-storage",
+    "type": "library",
+    "description": "ShopThemeStorage module",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.0",
+        "spryker-demo/shop-theme": "* as 1.0.0",
+        "spryker/kernel": "^3.70.0",
+        "spryker/publisher-extension": "^1.0.0",
+        "spryker/storage": "^3.19.2",
+        "spryker/store": "^1.16.1",
+        "spryker/synchronization-extension": "^1.2.0"
+    },
+    "require-dev": {
+        "spryker/code-sniffer": "*",
+        "spryker/testify": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SprykerDemo\\": "src/SprykerDemo/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SprykerDemoTest\\": "tests/SprykerDemoTest/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "cs-check": "phpcs -p -s --standard=vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml src/ tests/",
+        "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml src/ tests/"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
