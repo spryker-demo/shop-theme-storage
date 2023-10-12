@@ -11,11 +11,49 @@ interface ShopThemeStorageFacadeInterface
 {
     /**
      * Specification:
-     * - publishes frontend configuration to the storage.
+     * - Publishes shop theme to the storage by shop theme events.
      *
      * @api
      *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
      * @return void
      */
-    public function publish(): void;
+    public function writeByShopThemeEvents(array $eventEntityTransfers): void;
+
+    /**
+     * Specification:
+     * - Publishes shop theme to the storage by shop theme store events.
+     *
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function writeByShopThemeStoreEvents(array $eventEntityTransfers): void;
+
+    /**
+     * Specification:
+     * - Removes shop theme from the storage by shop theme store events.
+     *
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function deleteByShopThemeStoreEvents(array $eventEntityTransfers): void;
+
+    /**
+     * Specification:
+     * - Removes shop theme from the storage by shop theme events.
+     *
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function deleteByShopThemeEvents(array $eventEntityTransfers): void;
 }

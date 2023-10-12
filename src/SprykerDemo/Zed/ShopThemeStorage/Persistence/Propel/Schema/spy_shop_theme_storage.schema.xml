@@ -3,12 +3,17 @@
 
     <table name="spy_shop_theme_storage" identifierQuoting="true">
         <column name="id_shop_theme_storage" type="integer" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_shop_theme" type="integer" required="true"/>
 
         <behavior name="synchronization">
             <parameter name="resource" value="shop_theme"/>
-            <parameter name="store" required="false"/>
+            <parameter name="store" required="true"/>
             <parameter name="queue_group" value="sync.storage.shop_theme"/>
         </behavior>
+
+        <index name="spy_shop_theme_storage-fk_shop_theme">
+            <index-column name="fk_shop_theme"/>
+        </index>
 
         <id-method-parameter value="spy_shop_theme_storage_pk_seq"/>
     </table>

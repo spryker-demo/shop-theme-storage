@@ -7,9 +7,12 @@
 
 namespace SprykerDemo\Zed\ShopThemeStorage\Business;
 
+use Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\Store\Business\StoreFacadeInterface;
 use SprykerDemo\Zed\ShopTheme\Business\ShopThemeFacadeInterface;
+use SprykerDemo\Zed\ShopThemeStorage\Business\Deleter\ShopThemeStorageDeleter;
+use SprykerDemo\Zed\ShopThemeStorage\Business\Deleter\ShopThemeStorageDeleterInterface;
 use SprykerDemo\Zed\ShopThemeStorage\Business\Writer\ShopThemeStorageWriter;
 use SprykerDemo\Zed\ShopThemeStorage\Business\Writer\ShopThemeStorageWriterInterface;
 use SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageDependencyProvider;
@@ -17,6 +20,7 @@ use SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageDependencyProvider;
 /**
  * @method \SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageConfig getConfig()
  * @method \SprykerDemo\Zed\ShopThemeStorage\Persistence\ShopThemeStorageEntityManagerInterface getEntityManager()
+ * @method \SprykerDemo\Zed\ShopThemeStorage\Persistence\ShopThemeStorageRepositoryInterface getRepository()
  */
 class ShopThemeStorageBusinessFactory extends AbstractBusinessFactory
 {
@@ -27,8 +31,23 @@ class ShopThemeStorageBusinessFactory extends AbstractBusinessFactory
     {
         return new ShopThemeStorageWriter(
             $this->getShopThemeFacade(),
-            $this->getStoreFacade(),
+            $this->getEventBehaviorFacade(),
             $this->getEntityManager(),
+            $this->getRepository(),
+        );
+    }
+
+    /**
+     * @return \SprykerDemo\Zed\ShopThemeStorage\Business\Deleter\ShopThemeStorageDeleterInterface
+     */
+    public function createShopThemeStorageDeleter(): ShopThemeStorageDeleterInterface
+    {
+        return new ShopThemeStorageDeleter(
+            $this->getEventBehaviorFacade(),
+            $this->getEntityManager(),
+            $this->getStoreFacade(),
+            $this->getRepository(),
+            $this->getShopThemeFacade(),
         );
     }
 
@@ -46,5 +65,13 @@ class ShopThemeStorageBusinessFactory extends AbstractBusinessFactory
     public function getStoreFacade(): StoreFacadeInterface
     {
         return $this->getProvidedDependency(ShopThemeStorageDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return
+     */
+    public function getEventBehaviorFacade(): EventBehaviorFacadeInterface
+    {
+        return $this->getProvidedDependency(ShopThemeStorageDependencyProvider::FACADE_EVENT_BEHAVIOR);
     }
 }

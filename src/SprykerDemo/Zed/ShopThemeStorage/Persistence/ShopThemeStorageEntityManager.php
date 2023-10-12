@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Zed\ShopThemeStorage\Persistence;
 
+use Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
@@ -35,9 +36,34 @@ class ShopThemeStorageEntityManager extends AbstractEntityManager implements Sho
             ->createShopThemeStorageQuery()
             ->filterByStore($storeTransfer->getName())
             ->findOneOrCreate();
-
+        $shopThemeStorageEntity->setFkShopTheme($shopThemeTransfer->getIdShopTheme());
         $shopThemeStorageEntity->setData($shopThemeTransfer->getData());
 
         $shopThemeStorageEntity->save();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer
+     *
+     * @return void
+     */
+    public function deleteShopThemeStorage(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): void
+    {
+        if (!$shopThemeStorageCriteriaTransfer->getStoreNames() && !$shopThemeStorageCriteriaTransfer->getShopThemeIds()) {
+            return;
+        }
+
+        $shopThemeStorageQuery = $this->getFactory()
+            ->createShopThemeStorageQuery();
+
+        if ($shopThemeStorageCriteriaTransfer->getStoreNames()) {
+            $shopThemeStorageQuery->filterByStore_In($shopThemeStorageCriteriaTransfer->getStoreNames());
+        }
+
+        if ($shopThemeStorageCriteriaTransfer->getShopThemeIds()) {
+            $shopThemeStorageQuery->filterByFkShopTheme_In($shopThemeStorageCriteriaTransfer->getShopThemeIds());
+        }
+
+        $shopThemeStorageQuery->find()->delete();
     }
 }

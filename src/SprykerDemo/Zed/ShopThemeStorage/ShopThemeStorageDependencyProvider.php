@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Zed\ShopThemeStorage;
 
+use Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Store\Business\StoreFacadeInterface;
@@ -28,6 +29,11 @@ class ShopThemeStorageDependencyProvider extends AbstractBundleDependencyProvide
     public const FACADE_STORE = 'FACADE_STORE';
 
     /**
+     * @var string
+     */
+    public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -36,6 +42,7 @@ class ShopThemeStorageDependencyProvider extends AbstractBundleDependencyProvide
     {
         $container = $this->addShopThemeFacade($container);
         $container = $this->addStoreFacade($container);
+        $container = $this->addEventBehaviorFacade($container);
 
         return $container;
     }
@@ -63,6 +70,20 @@ class ShopThemeStorageDependencyProvider extends AbstractBundleDependencyProvide
     {
         $container->set(static::FACADE_STORE, function (Container $container): StoreFacadeInterface {
             return $container->getLocator()->store()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addEventBehaviorFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_EVENT_BEHAVIOR, function (Container $container): EventBehaviorFacadeInterface {
+            return $container->getLocator()->eventBehavior()->facade();
         });
 
         return $container;

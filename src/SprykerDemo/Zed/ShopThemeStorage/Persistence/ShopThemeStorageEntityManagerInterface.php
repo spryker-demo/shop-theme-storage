@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Zed\ShopThemeStorage\Persistence;
 
+use Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 
@@ -19,4 +20,11 @@ interface ShopThemeStorageEntityManagerInterface
      * @return void
      */
     public function saveShopThemeStorage(ShopThemeTransfer $shopThemeTransfer, StoreTransfer $storeTransfer): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer
+     *
+     * @return void
+     */
+    public function deleteShopThemeStorage(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): void;
 }

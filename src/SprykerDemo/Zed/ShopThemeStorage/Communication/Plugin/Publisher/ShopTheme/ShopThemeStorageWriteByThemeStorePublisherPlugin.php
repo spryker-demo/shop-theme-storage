@@ -9,18 +9,18 @@ namespace SprykerDemo\Zed\ShopThemeStorage\Communication\Plugin\Publisher\ShopTh
 
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface;
-use SprykerDemo\Zed\ShopTheme\Dependency\ShopThemeEvents;
+use SprykerDemo\Shared\ShopThemeStorage\ShopThemeStorageConfig;
 
 /**
  * @method \SprykerDemo\Zed\ShopThemeStorage\Business\ShopThemeStorageFacadeInterface getFacade()
  * @method \SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageConfig getConfig()
  */
-class ShopThemeStoragePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
+class ShopThemeStorageWriteByThemeStorePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
 {
     /**
      * {@inheritDoc}
-     * - Gets MerchantIds from event transfers.
-     * - Publish merchant data to storage table.
+     * - Gets Shop theme ids from event transfers.
+     * - Publishes shop theme data to storage table.
      *
      * @api
      *
@@ -31,7 +31,7 @@ class ShopThemeStoragePublisherPlugin extends AbstractPlugin implements Publishe
      */
     public function handleBulk(array $eventEntityTransfers, $eventName): void
     {
-        $this->getFacade()->publish();
+        $this->getFacade()->writeByShopThemeStoreEvents($eventEntityTransfers);
     }
 
     /**
@@ -44,13 +44,7 @@ class ShopThemeStoragePublisherPlugin extends AbstractPlugin implements Publishe
     public function getSubscribedEvents(): array
     {
         return [
-            ShopThemeEvents::SHOP_THEME_PUBLISH,
-            ShopThemeEvents::ENTITY_SPY_SHOP_THEME_CREATE,
-            ShopThemeEvents::ENTITY_SPY_SHOP_THEME_UPDATE,
-            ShopThemeEvents::ENTITY_SPY_SHOP_THEME_DELETE,
-            ShopThemeEvents::ENTITY_SPY_SHOP_THEME_STORE_CREATE,
-            ShopThemeEvents::ENTITY_SPY_SHOP_THEME_STORE_UPDATE,
-            ShopThemeEvents::ENTITY_SPY_SHOP_THEME_STORE_DELETE,
+            ShopThemeStorageConfig::ENTITY_SPY_SHOP_THEME_STORE_CREATE,
         ];
     }
 }

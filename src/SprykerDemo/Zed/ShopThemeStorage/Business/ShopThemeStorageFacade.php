@@ -21,12 +21,63 @@ class ShopThemeStorageFacade extends AbstractFacade implements ShopThemeStorageF
      *
      * @api
      *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
      * @return void
      */
-    public function publish(): void
+    public function writeByShopThemeEvents(array $eventEntityTransfers): void
     {
         $this->getFactory()
             ->createShopThemeStorageWriter()
-            ->publish();
+            ->writeByShopThemeEvents($eventEntityTransfers);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function writeByShopThemeStoreEvents(array $eventEntityTransfers): void
+    {
+        $this->getFactory()
+            ->createShopThemeStorageWriter()
+            ->writeByShopThemeStoreEvents($eventEntityTransfers);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function deleteByShopThemeStoreEvents(array $eventEntityTransfers): void
+    {
+        $this->getFactory()
+            ->createShopThemeStorageDeleter()
+            ->deleteByShopThemeStoreEvents($eventEntityTransfers);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function deleteByShopThemeEvents(array $eventEntityTransfers): void
+    {
+        $this->getFactory()
+            ->createShopThemeStorageDeleter()
+            ->deleteByShopThemeEvents($eventEntityTransfers);
     }
 }
