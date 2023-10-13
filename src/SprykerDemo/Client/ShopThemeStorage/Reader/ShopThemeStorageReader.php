@@ -7,7 +7,7 @@
 
 namespace SprykerDemo\Client\ShopThemeStorage\Reader;
 
-use Generated\Shared\Transfer\ShopThemeTransfer;
+use Generated\Shared\Transfer\ShopThemeDataTransfer;
 use Spryker\Client\Storage\StorageClientInterface;
 use Spryker\Client\Store\StoreClientInterface;
 
@@ -41,14 +41,13 @@ class ShopThemeStorageReader implements ShopThemeStorageReaderInterface
     }
 
     /**
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
      */
-    public function getActiveTheme(): ShopThemeTransfer
+    public function getActiveThemeData(): ShopThemeDataTransfer
     {
         $key = static::KEY_SHOP_THEME . strtolower($this->storeClient->getCurrentStore()->getName() ?? '');
         $shopThemeData = $this->storageClient->get($key);
 
-        return (new ShopThemeTransfer())
-            ->setData($shopThemeData);
+        return (new ShopThemeDataTransfer())->fromArray($shopThemeData ?? [], true);
     }
 }

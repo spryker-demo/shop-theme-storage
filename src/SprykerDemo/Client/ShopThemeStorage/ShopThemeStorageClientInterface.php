@@ -7,7 +7,7 @@
 
 namespace SprykerDemo\Client\ShopThemeStorage;
 
-use Generated\Shared\Transfer\ShopThemeTransfer;
+use Generated\Shared\Transfer\ShopThemeDataTransfer;
 
 interface ShopThemeStorageClientInterface
 {
@@ -17,7 +17,7 @@ interface ShopThemeStorageClientInterface
      *
      * @api
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
      */
-    public function getActiveTheme(): ShopThemeTransfer;
+    public function getActiveShopThemeData(): ShopThemeDataTransfer;
 }

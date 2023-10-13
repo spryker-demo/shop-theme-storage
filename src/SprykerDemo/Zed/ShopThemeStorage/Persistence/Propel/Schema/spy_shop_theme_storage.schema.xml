@@ -16,5 +16,6 @@
         </index>
 
         <id-method-parameter value="spy_shop_theme_storage_pk_seq"/>
+        <behavior name="timestampable"/>
     </table>
 </database>

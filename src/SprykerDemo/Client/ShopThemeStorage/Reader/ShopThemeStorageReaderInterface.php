@@ -7,12 +7,12 @@
 
 namespace SprykerDemo\Client\ShopThemeStorage\Reader;
 
-use Generated\Shared\Transfer\ShopThemeTransfer;
+use Generated\Shared\Transfer\ShopThemeDataTransfer;
 
 interface ShopThemeStorageReaderInterface
 {
     /**
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
      */
-    public function getActiveTheme(): ShopThemeTransfer;
+    public function getActiveThemeData(): ShopThemeDataTransfer;
 }

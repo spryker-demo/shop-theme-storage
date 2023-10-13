@@ -7,7 +7,7 @@
 
 namespace SprykerDemo\Client\ShopThemeStorage;
 
-use Generated\Shared\Transfer\ShopThemeTransfer;
+use Generated\Shared\Transfer\ShopThemeDataTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -20,12 +20,12 @@ class ShopThemeStorageClient extends AbstractClient implements ShopThemeStorageC
      *
      * @api
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
      */
-    public function getActiveTheme(): ShopThemeTransfer
+    public function getActiveShopThemeData(): ShopThemeDataTransfer
     {
         return $this->getFactory()
             ->createShopThemeStorageReader()
-            ->getActiveTheme();
+            ->getActiveThemeData();
     }
 }
