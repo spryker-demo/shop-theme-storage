@@ -110,7 +110,7 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
     }
 
     /**
-     * @param array $shopThemeStoreEventsGroupedByStoreId
+     * @param array<int, array<mixed>> $shopThemeStoreEventsGroupedByStoreId
      *
      * @return void
      */

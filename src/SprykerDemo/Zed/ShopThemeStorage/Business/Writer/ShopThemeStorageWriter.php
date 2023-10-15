@@ -131,8 +131,8 @@ class ShopThemeStorageWriter implements ShopThemeStorageWriterInterface
     }
 
     /**
-     * @param array $shopThemeIds
-     * @param array $activeShopThemes
+     * @param array<int> $shopThemeIds
+     * @param array<\Generated\Shared\Transfer\ShopThemeTransfer> $activeShopThemes
      *
      * @return void
      */
@@ -161,7 +161,7 @@ class ShopThemeStorageWriter implements ShopThemeStorageWriterInterface
     }
 
     /**
-     * @param array $activeShopThemes
+     * @param array<\Generated\Shared\Transfer\ShopThemeTransfer> $activeShopThemes
      *
      * @return void
      */
@@ -177,7 +177,7 @@ class ShopThemeStorageWriter implements ShopThemeStorageWriterInterface
     /**
      * @param array<\Generated\Shared\Transfer\ShopThemeTransfer> $activeShopThemes
      *
-     * @return array
+     * @return array<int>
      */
     protected function extractActiveShopThemeIds(array $activeShopThemes): array
     {

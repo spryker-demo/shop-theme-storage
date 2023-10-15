@@ -68,7 +68,7 @@ class ShopThemeStorageBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return
+     * @return \Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface
      */
     public function getEventBehaviorFacade(): EventBehaviorFacadeInterface
     {
