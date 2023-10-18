@@ -68,7 +68,6 @@ class ShopThemeStorageFacade extends AbstractFacade implements ShopThemeStorageF
      * {@inheritDoc}
      *
      * @api
-     * @api
      *
      * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
      *

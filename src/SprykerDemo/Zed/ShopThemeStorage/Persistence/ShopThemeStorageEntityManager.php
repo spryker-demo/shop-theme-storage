@@ -18,13 +18,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 class ShopThemeStorageEntityManager extends AbstractEntityManager implements ShopThemeStorageEntityManagerInterface
 {
     /**
-     * @uses \SprykerDemo\Zed\ShopTheme\ShopThemeConfig::FRONTEND_CONFIG_REDIS_KEY_SUFFIX
-     *
-     * @var string
-     */
-    protected const FK_SHOP_THEME = 'FRONTEND_CONFIG';
-
-    /**
      * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
      * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
      *

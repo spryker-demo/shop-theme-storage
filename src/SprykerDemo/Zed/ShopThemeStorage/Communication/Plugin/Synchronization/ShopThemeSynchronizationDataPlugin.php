@@ -23,13 +23,6 @@ use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataBu
 class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements SynchronizationDataBulkRepositoryPluginInterface
 {
     /**
-     * @uses \Propel\Runtime\ActiveQuery\Criteria::ASC
-     *
-     * @var string
-     */
-    protected const ORDER_DIRECTION = 'ASC';
-
-    /**
      * {@inheritDoc}
      *
      * @api
