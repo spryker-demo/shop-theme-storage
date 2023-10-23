@@ -52,9 +52,34 @@ class ShopThemeStorageReader implements ShopThemeStorageReaderInterface
             return $shopThemeDataTransfer;
         }
 
-        $key = static::KEY_SHOP_THEME . strtolower($storeName);
-        $shopThemeData = $this->storageClient->get($key);
+        $shopThemeStorageKey = $this->findStorageKey($storeName);
+
+        if ($shopThemeStorageKey === null) {
+            return $shopThemeDataTransfer;
+        }
+
+        $shopThemeData = $this->storageClient->get($shopThemeStorageKey);
 
         return $shopThemeDataTransfer->fromArray($shopThemeData ?? [], true);
+    }
+
+    /**
+     * @param string $storeName
+     *
+     * @return string|null
+     */
+    protected function findStorageKey(string $storeName): ?string
+    {
+        $shopThemeBaseKey = static::KEY_SHOP_THEME . strtolower($storeName);
+        $storageScanResultTransfer = $this->storageClient->scanKeys(sprintf('%s:*', $shopThemeBaseKey), 1);
+        $keys = $storageScanResultTransfer->getKeys();
+        if (!$keys) {
+            return null;
+        }
+
+        $shopThemeKey = array_shift($keys);
+        $shopThemeBaseKeyPos = strpos($shopThemeKey, $shopThemeBaseKey);
+
+        return substr($shopThemeKey, $shopThemeBaseKeyPos);
     }
 }

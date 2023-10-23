@@ -9,6 +9,7 @@
             <parameter name="resource" value="shop_theme"/>
             <parameter name="store" required="true"/>
             <parameter name="queue_group" value="sync.storage.shop_theme"/>
+            <parameter name="key_suffix_column" value="fk_shop_theme"/>
         </behavior>
 
         <index name="spy_shop_theme_storage-fk_shop_theme">

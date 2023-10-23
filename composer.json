@@ -8,7 +8,7 @@
         "spryker-demo/shop-theme": "^0.1.0",
         "spryker/kernel": "^3.70.0",
         "spryker/event-behavior": "^1.24.1",
-        "spryker/propel-orm": "*",
+        "spryker/propel-orm": "^1.17.0",
         "spryker/publisher-extension": "^1.0.0",
         "spryker/storage": "^3.19.2",
         "spryker/store": "^1.16.1",
