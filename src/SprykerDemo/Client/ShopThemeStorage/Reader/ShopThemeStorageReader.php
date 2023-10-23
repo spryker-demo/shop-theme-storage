@@ -80,6 +80,10 @@ class ShopThemeStorageReader implements ShopThemeStorageReaderInterface
         $shopThemeKey = array_shift($keys);
         $shopThemeBaseKeyPos = strpos($shopThemeKey, $shopThemeBaseKey);
 
+        if ($shopThemeBaseKeyPos === false) {
+            return null;
+        }
+
         return substr($shopThemeKey, $shopThemeBaseKeyPos);
     }
 }
