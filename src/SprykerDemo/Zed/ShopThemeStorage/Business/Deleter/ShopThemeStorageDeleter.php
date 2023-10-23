@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer;
 use Generated\Shared\Transfer\StoreCollectionTransfer;
 use Generated\Shared\Transfer\StoreConditionsTransfer;
 use Generated\Shared\Transfer\StoreCriteriaTransfer;
+use Generated\Shared\Transfer\StoreTransfer;
 use Orm\Zed\ShopTheme\Persistence\Map\SpyShopThemeStoreTableMap;
 use Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
@@ -83,12 +84,15 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
     public function deleteByShopThemeEvents(array $eventEntityTransfers): void
     {
         $shopThemeIds = $this->eventBehaviorFacade->getEventTransferIds($eventEntityTransfers);
+
         if (!$shopThemeIds) {
             return;
         }
 
         $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeIds) {
-            $this->shopThemeStorageEntityManager->deleteShopThemeStorage((new ShopThemeStorageCriteriaTransfer())->setShopThemeIds($shopThemeIds));
+            $this->shopThemeStorageEntityManager->deleteShopThemeStorage(
+                (new ShopThemeStorageCriteriaTransfer())->setShopThemeIds($shopThemeIds),
+            );
         });
     }
 
@@ -100,6 +104,7 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
     public function deleteByShopThemeStoreEvents(array $eventEntityTransfers): void
     {
         $shopThemeStoreEventsGroupedByStoreId = $this->eventBehaviorFacade->getGroupedEventTransferForeignKeysByForeignKey($eventEntityTransfers, SpyShopThemeStoreTableMap::COL_FK_STORE);
+
         if (!$shopThemeStoreEventsGroupedByStoreId) {
             return;
         }
@@ -119,9 +124,7 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
         $storeIds = array_keys($shopThemeStoreEventsGroupedByStoreId);
         $storeCollectionTransfer = $this->storeFacade->getStoreCollection((new StoreCriteriaTransfer())->setStoreConditions((new StoreConditionsTransfer())->setStoreIds($storeIds)));
         $storeNames = $this->extractStoreNamesFromStoreCollection($storeCollectionTransfer);
-        $existingShopThemeIds = $this->shopThemeStorageRepository->getShopThemeIds((new ShopThemeStorageCriteriaTransfer())->setStoreNames($storeNames));
-        $activeShopThemeIds = $this->shopThemeFacade->getShopThemeIds((new ShopThemeCriteriaTransfer())->setStoreIds($storeIds));
-        $existingShopThemeIds = array_diff($activeShopThemeIds, $existingShopThemeIds);
+        $existingShopThemeIds = $this->getExistingShopThemeIds($storeNames, $storeIds);
 
         if (!$existingShopThemeIds) {
             return;
@@ -132,19 +135,7 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
                 continue;
             }
 
-            foreach ($shopThemeStoreEventsGroupedByStoreId[$store->getIdStore()] as $eventForeignKeys) {
-                $shopThemeId = $eventForeignKeys[SpyShopThemeStoreTableMap::COL_FK_SHOP_THEME] ?? null;
-
-                if (!$shopThemeId || !in_array($shopThemeId, $existingShopThemeIds)) {
-                    continue;
-                }
-
-                $this->shopThemeStorageEntityManager->deleteShopThemeStorage(
-                    (new ShopThemeStorageCriteriaTransfer())
-                        ->setShopThemeIds([$shopThemeId])
-                        ->setStoreNames([$store->getName()]),
-                );
-            }
+            $this->deleteShopThemeStorageByStore($shopThemeStoreEventsGroupedByStoreId[$store->getIdStore()], $store, $existingShopThemeIds);
         }
     }
 
@@ -161,5 +152,43 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
         }
 
         return $storeNames;
+    }
+
+    /**
+     * @param array<string> $storeNames
+     * @param array<int> $storeIds
+     *
+     * @return array<int>
+     */
+    protected function getExistingShopThemeIds(array $storeNames, array $storeIds): array
+    {
+         return array_diff(
+             $this->shopThemeStorageRepository->getShopThemeIds((new ShopThemeStorageCriteriaTransfer())->setStoreNames($storeNames)),
+             $this->shopThemeFacade->getShopThemeIds((new ShopThemeCriteriaTransfer())->setStoreIds($storeIds)),
+         );
+    }
+
+    /**
+     * @param array<int, mixed> $shopThemeStoreEventsGroupedByStoreId
+     * @param \Generated\Shared\Transfer\StoreTransfer $store
+     * @param array<int> $existingShopThemeIds
+     *
+     * @return void
+     */
+    protected function deleteShopThemeStorageByStore(array $shopThemeStoreEventsGroupedByStoreId, StoreTransfer $store, array $existingShopThemeIds): void
+    {
+        foreach ($shopThemeStoreEventsGroupedByStoreId[$store->getIdStore()] as $eventForeignKeys) {
+            $shopThemeId = $eventForeignKeys[SpyShopThemeStoreTableMap::COL_FK_SHOP_THEME] ?? null;
+
+            if ($shopThemeId === null || !in_array($shopThemeId, $existingShopThemeIds)) {
+                continue;
+            }
+
+            $this->shopThemeStorageEntityManager->deleteShopThemeStorage(
+                (new ShopThemeStorageCriteriaTransfer())
+                    ->setShopThemeIds([$shopThemeId])
+                    ->setStoreNames([$store->getName()]),
+            );
+        }
     }
 }

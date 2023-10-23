@@ -16,7 +16,7 @@ class ShopThemeStorageConfig extends AbstractBundleConfig
      *
      * @var string
      */
-    public const PUBLISH_SHOP_THEME = 'publish.shop_theme';
+    public const PUBLISH_SHOP_THEME_QUEUE = 'publish.shop_theme';
 
     /**
      * Specification:
@@ -29,12 +29,22 @@ class ShopThemeStorageConfig extends AbstractBundleConfig
     public const SHOP_THEME_SYNC_STORAGE_QUEUE = 'sync.storage.shop_theme';
 
     /**
+     * Specification:
+     * - Key generation resource name for shop theme messages.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const SHOP_THEME_RESOURCE_NAME = 'shop_theme';
+
+    /**
      * @api
      *
      * @return string|null
      */
     public function getShopThemeEventQueueName(): ?string
     {
-        return static::PUBLISH_SHOP_THEME;
+        return static::PUBLISH_SHOP_THEME_QUEUE;
     }
 }

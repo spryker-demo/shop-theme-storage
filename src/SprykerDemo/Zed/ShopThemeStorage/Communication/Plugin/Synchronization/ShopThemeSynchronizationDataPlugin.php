@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataBulkRepositoryPluginInterface;
+use SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageConfig;
 
 /**
  * @method \Spryker\Zed\MerchantStorage\Business\MerchantStorageFacadeInterface getFacade()
@@ -31,7 +32,7 @@ class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements Synch
      */
     public function getResourceName(): string
     {
-        return 'shop_theme';
+        return ShopThemeStorageConfig::SHOP_THEME_RESOURCE_NAME;
     }
 
     /**
@@ -90,7 +91,7 @@ class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements Synch
      */
     public function getQueueName(): string
     {
-        return 'sync.storage.shop_theme';
+        return ShopThemeStorageConfig::SHOP_THEME_SYNC_STORAGE_QUEUE;
     }
 
     /**

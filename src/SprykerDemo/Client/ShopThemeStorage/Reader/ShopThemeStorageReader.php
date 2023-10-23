@@ -45,9 +45,16 @@ class ShopThemeStorageReader implements ShopThemeStorageReaderInterface
      */
     public function getActiveThemeData(): ShopThemeDataTransfer
     {
-        $key = static::KEY_SHOP_THEME . strtolower($this->storeClient->getCurrentStore()->getName() ?? '');
+        $storeName = $this->storeClient->getCurrentStore()->getName() ?? '';
+        $shopThemeDataTransfer = new ShopThemeDataTransfer();
+
+        if (!$storeName) {
+            return $shopThemeDataTransfer;
+        }
+
+        $key = static::KEY_SHOP_THEME . strtolower($storeName);
         $shopThemeData = $this->storageClient->get($key);
 
-        return (new ShopThemeDataTransfer())->fromArray($shopThemeData ?? [], true);
+        return $shopThemeDataTransfer->fromArray($shopThemeData ?? [], true);
     }
 }

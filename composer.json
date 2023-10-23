@@ -8,6 +8,7 @@
         "spryker-demo/shop-theme": "^0.1.0",
         "spryker/kernel": "^3.70.0",
         "spryker/event-behavior": "^1.24.1",
+        "spryker/propel-orm": "*",
         "spryker/publisher-extension": "^1.0.0",
         "spryker/storage": "^3.19.2",
         "spryker/store": "^1.16.1",
@@ -15,8 +16,7 @@
         "spryker/synchronization-extension": "^1.2.0"
     },
     "require-dev": {
-        "spryker/code-sniffer": "*",
-        "spryker/propel-orm": "*"
+        "spryker/code-sniffer": "*"
     },
     "autoload": {
         "psr-4": {
