@@ -103,25 +103,25 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
      */
     public function deleteByShopThemeStoreEvents(array $eventEntityTransfers): void
     {
-        $shopThemeStoreEventsGroupedByStoreId = $this->eventBehaviorFacade->getGroupedEventTransferForeignKeysByForeignKey($eventEntityTransfers, SpyShopThemeStoreTableMap::COL_FK_STORE);
+        $shopThemeStoreEventsForeignKeysGroupedByStoreId = $this->eventBehaviorFacade->getGroupedEventTransferForeignKeysByForeignKey($eventEntityTransfers, SpyShopThemeStoreTableMap::COL_FK_STORE);
 
-        if (!$shopThemeStoreEventsGroupedByStoreId) {
+        if (!$shopThemeStoreEventsForeignKeysGroupedByStoreId) {
             return;
         }
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeStoreEventsGroupedByStoreId) {
-            $this->executeDeleteByShopThemeStoreEvents($shopThemeStoreEventsGroupedByStoreId);
+        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeStoreEventsForeignKeysGroupedByStoreId) {
+            $this->executeDeleteByShopThemeStoreEvents($shopThemeStoreEventsForeignKeysGroupedByStoreId);
         });
     }
 
     /**
-     * @param array<int, array<mixed>> $shopThemeStoreEventsGroupedByStoreId
+     * @param array<int, array<mixed>> $shopThemeStoreEventsForeignKeysGroupedByStoreId
      *
      * @return void
      */
-    protected function executeDeleteByShopThemeStoreEvents(array $shopThemeStoreEventsGroupedByStoreId): void
+    protected function executeDeleteByShopThemeStoreEvents(array $shopThemeStoreEventsForeignKeysGroupedByStoreId): void
     {
-        $storeIds = array_keys($shopThemeStoreEventsGroupedByStoreId);
+        $storeIds = array_keys($shopThemeStoreEventsForeignKeysGroupedByStoreId);
         $storeCollectionTransfer = $this->storeFacade->getStoreCollection((new StoreCriteriaTransfer())->setStoreConditions((new StoreConditionsTransfer())->setStoreIds($storeIds)));
         $storeNames = $this->extractStoreNamesFromStoreCollection($storeCollectionTransfer);
         $existingShopThemeIds = $this->getExistingShopThemeIds($storeNames, $storeIds);
@@ -131,11 +131,11 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
         }
 
         foreach ($storeCollectionTransfer->getStores() as $store) {
-            if (!isset($shopThemeStoreEventsGroupedByStoreId[$store->getIdStore()])) {
+            if (!isset($shopThemeStoreEventsForeignKeysGroupedByStoreId[$store->getIdStore()])) {
                 continue;
             }
 
-            $this->deleteShopThemeStorageByStore($shopThemeStoreEventsGroupedByStoreId[$store->getIdStore()], $store, $existingShopThemeIds);
+            $this->deleteShopThemeStorageByStore($shopThemeStoreEventsForeignKeysGroupedByStoreId[$store->getIdStore()], $store, $existingShopThemeIds);
         }
     }
 
@@ -169,15 +169,15 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
     }
 
     /**
-     * @param array<int, mixed> $shopThemeStoreEventsGroupedByStoreId
+     * @param array<int,mixed> $shopThemeStoreEventForeignKeys
      * @param \Generated\Shared\Transfer\StoreTransfer $store
      * @param array<int> $existingShopThemeIds
      *
      * @return void
      */
-    protected function deleteShopThemeStorageByStore(array $shopThemeStoreEventsGroupedByStoreId, StoreTransfer $store, array $existingShopThemeIds): void
+    protected function deleteShopThemeStorageByStore(array $shopThemeStoreEventForeignKeys, StoreTransfer $store, array $existingShopThemeIds): void
     {
-        foreach ($shopThemeStoreEventsGroupedByStoreId[$store->getIdStore()] as $eventForeignKeys) {
+        foreach ($shopThemeStoreEventForeignKeys as $eventForeignKeys) {
             $shopThemeId = $eventForeignKeys[SpyShopThemeStoreTableMap::COL_FK_SHOP_THEME] ?? null;
 
             if ($shopThemeId === null || !in_array($shopThemeId, $existingShopThemeIds)) {
