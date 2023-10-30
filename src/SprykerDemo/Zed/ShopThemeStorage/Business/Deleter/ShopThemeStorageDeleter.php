@@ -169,7 +169,7 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
     }
 
     /**
-     * @param array<int,mixed> $shopThemeStoreEventForeignKeys
+     * @param array<int, mixed> $shopThemeStoreEventForeignKeys
      * @param \Generated\Shared\Transfer\StoreTransfer $store
      * @param array<int> $existingShopThemeIds
      *
