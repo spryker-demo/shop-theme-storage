@@ -73,6 +73,16 @@ class ShopThemeStorageConfig extends AbstractBundleConfig
 
     /**
      * Specification:
+     * - Represents ShopTheme publish event.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const ENTITY_SPY_SHOP_THEME_PUBLISH = 'ShopTheme.shop_theme.publish';
+
+    /**
+     * Specification:
      * - Resource name, this will use for key generating.
      *
      * @api

@@ -46,6 +46,7 @@ class ShopThemeStorageWritePublisherPlugin extends AbstractPlugin implements Pub
         return [
             ShopThemeStorageConfig::ENTITY_SPY_SHOP_THEME_CREATE,
             ShopThemeStorageConfig::ENTITY_SPY_SHOP_THEME_UPDATE,
+            ShopThemeStorageConfig::ENTITY_SPY_SHOP_THEME_PUBLISH,
         ];
     }
 }
