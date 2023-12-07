@@ -89,7 +89,7 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
             return;
         }
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeIds) {
+        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeIds): void {
             $this->shopThemeStorageEntityManager->deleteShopThemeStorage(
                 (new ShopThemeStorageCriteriaTransfer())->setShopThemeIds($shopThemeIds),
             );
@@ -109,7 +109,7 @@ class ShopThemeStorageDeleter implements ShopThemeStorageDeleterInterface
             return;
         }
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeStoreEventsForeignKeysGroupedByStoreId) {
+        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeStoreEventsForeignKeysGroupedByStoreId): void {
             $this->executeDeleteByShopThemeStoreEvents($shopThemeStoreEventsForeignKeysGroupedByStoreId);
         });
     }

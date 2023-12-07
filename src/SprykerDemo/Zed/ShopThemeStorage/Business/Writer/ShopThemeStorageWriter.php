@@ -72,7 +72,7 @@ class ShopThemeStorageWriter implements ShopThemeStorageWriterInterface
     {
         $shopThemeIds = $this->eventBehaviorFacade->getEventTransferIds($eventEntityTransfers);
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeIds) {
+        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeIds): void {
             $this->executeWriteShopThemeStorageByShopThemeIds($shopThemeIds);
         });
     }
@@ -104,7 +104,7 @@ class ShopThemeStorageWriter implements ShopThemeStorageWriterInterface
     {
         $shopThemeIds = $this->eventBehaviorFacade->getEventTransferForeignKeys($eventEntityTransfers, SpyShopThemeStoreTableMap::COL_FK_SHOP_THEME);
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeIds) {
+        $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeIds): void {
             $this->executeWriteActiveShopThemesToStorage($shopThemeIds);
         });
     }
