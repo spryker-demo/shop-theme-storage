@@ -6,9 +6,8 @@
     "require": {
         "php": ">=8.0",
         "spryker-demo/shop-theme": "^1.0.0",
-        "spryker/kernel": "^3.70.0",
         "spryker/event-behavior": "^1.24.1",
-        "spryker/propel-orm": "^1.17.0",
+        "spryker/kernel": "^3.70.0",
         "spryker/publisher-extension": "^1.0.0",
         "spryker/storage": "^3.19.2",
         "spryker/store": "^1.16.1",
@@ -16,7 +15,8 @@
         "spryker/synchronization-extension": "^1.2.0"
     },
     "require-dev": {
-        "spryker/code-sniffer": "*"
+        "spryker/code-sniffer": "*",
+        "spryker/propel-orm": "*"
     },
     "autoload": {
         "psr-4": {
@@ -43,6 +43,6 @@
         "sort-packages": true
     },
     "suggest": {
-        "spryker/propel-orm": "ADD SUGGEST DESCRIPTION"
+        "spryker/propel-orm": "If synchronization data plugin needs to be used."
     }
 }
