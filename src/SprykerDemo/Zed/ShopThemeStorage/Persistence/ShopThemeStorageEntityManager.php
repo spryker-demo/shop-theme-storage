@@ -56,6 +56,9 @@ class ShopThemeStorageEntityManager extends AbstractEntityManager implements Sho
             $shopThemeStorageQuery->filterByFkShopTheme_In($shopThemeStorageCriteriaTransfer->getShopThemeIds());
         }
 
-        $shopThemeStorageQuery->find()->delete();
+        /** @var \Propel\Runtime\Collection\ObjectCollection $shopThemeStorageEntities */
+        $shopThemeStorageEntities = $shopThemeStorageQuery->find();
+
+        $shopThemeStorageEntities->delete();
     }
 }

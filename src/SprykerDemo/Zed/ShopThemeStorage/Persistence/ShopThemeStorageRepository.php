@@ -33,6 +33,9 @@ class ShopThemeStorageRepository extends AbstractRepository implements ShopTheme
             $shopThemeStorageQuery->filterByFkShopTheme_In($shopThemeStorageCriteriaTransfer->getShopThemeIds());
         }
 
-        return $shopThemeStorageQuery->find()->getColumnValues('fkShopTheme');
+        /** @var \Propel\Runtime\Collection\ObjectCollection $shopThemeStorageEntities */
+        $shopThemeStorageEntities = $shopThemeStorageQuery->find();
+
+        return $shopThemeStorageEntities->getColumnValues('fkShopTheme');
     }
 }
