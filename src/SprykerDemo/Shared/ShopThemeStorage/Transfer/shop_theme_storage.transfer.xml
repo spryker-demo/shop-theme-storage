@@ -4,6 +4,7 @@
     <transfer name="ShopThemeStorageCriteria">
         <property name="shopThemeIds" type="int[]" singular="shopThemeId"/>
         <property name="storeNames" type="string[]" singular="storeName"/>
+        <property name="filter" type="Filter"/>
     </transfer>
 
 </transfers>

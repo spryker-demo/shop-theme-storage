@@ -8,6 +8,7 @@
 namespace SprykerDemo\Zed\ShopThemeStorage\Persistence;
 
 use Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer;
+use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -37,5 +38,30 @@ class ShopThemeStorageRepository extends AbstractRepository implements ShopTheme
         $shopThemeStorageEntities = $shopThemeStorageQuery->find();
 
         return $shopThemeStorageEntities->getColumnValues('fkShopTheme');
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer
+     *
+     * @return \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ShopThemeStorage\Persistence\SpyShopThemeStorage>
+     */
+    public function getShopThemeEntityCollectionTransfer(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): ObjectCollection
+    {
+        $shopThemeStorageQuery = $this->getFactory()
+            ->createShopThemeStorageQuery();
+
+        if ($shopThemeStorageCriteriaTransfer->getShopThemeIds()) {
+            $shopThemeStorageQuery->filterByFkShopTheme_In($shopThemeStorageCriteriaTransfer->getShopThemeIds());
+        }
+
+        if ($shopThemeStorageCriteriaTransfer->getFilter()->getLimit()) {
+            $shopThemeStorageQuery->setLimit($shopThemeStorageCriteriaTransfer->getFilter()->getLimit());
+        }
+
+        if ($shopThemeStorageCriteriaTransfer->getFilter()->getOffset()) {
+            $shopThemeStorageQuery->setOffset($shopThemeStorageCriteriaTransfer->getFilter()->getOffset());
+        }
+
+        return $shopThemeStorageQuery->find();
     }
 }

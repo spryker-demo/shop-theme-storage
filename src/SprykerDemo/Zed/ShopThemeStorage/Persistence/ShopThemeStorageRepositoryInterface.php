@@ -8,6 +8,7 @@
 namespace SprykerDemo\Zed\ShopThemeStorage\Persistence;
 
 use Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer;
+use Propel\Runtime\Collection\ObjectCollection;
 
 interface ShopThemeStorageRepositoryInterface
 {
@@ -17,4 +18,11 @@ interface ShopThemeStorageRepositoryInterface
      * @return array<int>
      */
     public function getShopThemeIds(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): array;
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer
+     *
+     * @return \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ShopThemeStorage\Persistence\SpyShopThemeStorage>
+     */
+    public function getShopThemeEntityCollectionTransfer(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): ObjectCollection;
 }

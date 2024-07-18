@@ -8,7 +8,7 @@
 namespace SprykerDemo\Zed\ShopThemeStorage\Communication\Plugin\Synchronization;
 
 use Generated\Shared\Transfer\FilterTransfer;
-use Generated\Shared\Transfer\MerchantStorageCriteriaTransfer;
+use Generated\Shared\Transfer\ShopThemeStorageCriteriaTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -16,10 +16,9 @@ use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataBu
 use SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageConfig;
 
 /**
- * @method \Spryker\Zed\MerchantStorage\Business\MerchantStorageFacadeInterface getFacade()
- * @method \Spryker\Zed\MerchantStorage\Communication\MerchantStorageCommunicationFactory getFactory()
- * @method \Spryker\Zed\MerchantStorage\MerchantStorageConfig getConfig()
- * @method \Spryker\Zed\MerchantStorage\Persistence\MerchantStorageRepositoryInterface getRepository()()
+ * @method \SprykerDemo\Zed\ShopThemeStorage\Persistence\ShopThemeStorageRepositoryInterface getRepository()
+ * @method \SprykerDemo\Zed\ShopThemeStorage\Business\ShopThemeStorageFacadeInterface getFacade()
+ * @method \SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageConfig getConfig()
  */
 class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements SynchronizationDataBulkRepositoryPluginInterface
 {
@@ -44,7 +43,7 @@ class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements Synch
      */
     public function hasStore(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -60,14 +59,14 @@ class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements Synch
      */
     public function getData(int $offset, int $limit, array $ids = []): array
     {
-        $merchantStorageEntities = $this->getRepository()
-            ->getFilteredMerchantStorageEntityTransfers(
-                (new MerchantStorageCriteriaTransfer())
+        $shopThemeEntityCollectionTransfer = $this->getRepository()
+            ->getShopThemeEntityCollectionTransfer(
+                (new ShopThemeStorageCriteriaTransfer())
                     ->setFilter($this->createFilterTransfer($offset, $limit))
-                    ->setMerchantIds($ids),
+                    ->setShopThemeIds($ids),
             );
 
-        return $this->mapMerchantStorageEntitiesToSynchronizationDataTransfers($merchantStorageEntities);
+        return $this->mapShopThemeIdsToSynchronizationDataTransfers($shopThemeEntityCollectionTransfer);
     }
 
     /**
@@ -120,17 +119,17 @@ class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements Synch
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection $merchantStorageEntities
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ShopThemeStorage\Persistence\SpyShopThemeStorage> $shopThemeStorageEntityCollection
      *
      * @return array<\Generated\Shared\Transfer\SynchronizationDataTransfer>
      */
-    protected function mapMerchantStorageEntitiesToSynchronizationDataTransfers(ObjectCollection $merchantStorageEntities): array
+    protected function mapShopThemeIdsToSynchronizationDataTransfers(ObjectCollection $shopThemeStorageEntityCollection): array
     {
         $synchronizationDataTransfers = [];
 
-        foreach ($merchantStorageEntities as $merchantStorageEntity) {
+        foreach ($shopThemeStorageEntityCollection as $shopThemeEntity) {
             $synchronizationDataTransfers[] = (new SynchronizationDataTransfer())
-                ->fromArray($merchantStorageEntity->toArray(), true);
+                ->fromArray($shopThemeEntity->toArray(), true);
         }
 
         return $synchronizationDataTransfers;
