@@ -45,7 +45,7 @@ class ShopThemeStorageRepository extends AbstractRepository implements ShopTheme
      *
      * @return \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ShopThemeStorage\Persistence\SpyShopThemeStorage>
      */
-    public function getShopThemeEntityCollectionTransfer(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): ObjectCollection
+    public function getShopThemeEntityCollection(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): ObjectCollection
     {
         $shopThemeStorageQuery = $this->getFactory()
             ->createShopThemeStorageQuery();

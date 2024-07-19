@@ -24,5 +24,5 @@ interface ShopThemeStorageRepositoryInterface
      *
      * @return \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ShopThemeStorage\Persistence\SpyShopThemeStorage>
      */
-    public function getShopThemeEntityCollectionTransfer(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): ObjectCollection;
+    public function getShopThemeEntityCollection(ShopThemeStorageCriteriaTransfer $shopThemeStorageCriteriaTransfer): ObjectCollection;
 }

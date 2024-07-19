@@ -59,14 +59,14 @@ class ShopThemeSynchronizationDataPlugin extends AbstractPlugin implements Synch
      */
     public function getData(int $offset, int $limit, array $ids = []): array
     {
-        $shopThemeEntityCollectionTransfer = $this->getRepository()
-            ->getShopThemeEntityCollectionTransfer(
+        $shopThemeEntityCollection = $this->getRepository()
+            ->getShopThemeEntityCollection(
                 (new ShopThemeStorageCriteriaTransfer())
                     ->setFilter($this->createFilterTransfer($offset, $limit))
                     ->setShopThemeIds($ids),
             );
 
-        return $this->mapShopThemeIdsToSynchronizationDataTransfers($shopThemeEntityCollectionTransfer);
+        return $this->mapShopThemeIdsToSynchronizationDataTransfers($shopThemeEntityCollection);
     }
 
     /**
