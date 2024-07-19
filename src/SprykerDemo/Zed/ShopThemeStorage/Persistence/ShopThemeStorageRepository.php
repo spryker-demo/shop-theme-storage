@@ -62,6 +62,9 @@ class ShopThemeStorageRepository extends AbstractRepository implements ShopTheme
             $shopThemeStorageQuery->setOffset($shopThemeStorageCriteriaTransfer->getFilter()->getOffset());
         }
 
-        return $shopThemeStorageQuery->find();
+        /** @var \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\ShopThemeStorage\Persistence\SpyShopThemeStorage> $shopThemeStorageEntities */
+        $shopThemeStorageEntities = $shopThemeStorageQuery->find();
+
+        return $shopThemeStorageEntities;
     }
 }
