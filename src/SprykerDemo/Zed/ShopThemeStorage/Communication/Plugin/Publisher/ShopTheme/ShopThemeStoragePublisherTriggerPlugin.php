@@ -34,7 +34,7 @@ class ShopThemeStoragePublisherTriggerPlugin extends AbstractPlugin implements P
      * @param int $offset
      * @param int $limit
      *
-     * @return \Spryker\Shared\Kernel\Transfer\AbstractTransfer[]
+     * @return array<\Generated\Shared\Transfer\ShopThemeTransfer>
      */
     public function getData(int $offset, int $limit): array
     {
