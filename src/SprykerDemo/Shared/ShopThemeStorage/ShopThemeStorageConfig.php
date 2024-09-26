@@ -89,5 +89,5 @@ class ShopThemeStorageConfig extends AbstractBundleConfig
      *
      * @var string
      */
-    public const SHOP_THEME_RESOURCE_NAME = 'spy_shop_theme';
+    public const SHOP_THEME_RESOURCE_NAME = 'shop_theme';
 }

@@ -27,9 +27,10 @@ class ShopThemeStorageEntityManager extends AbstractEntityManager implements Sho
     {
         $shopThemeStorageEntity = $this->getFactory()
             ->createShopThemeStorageQuery()
-            ->filterByStore($storeTransfer->getNameOrFail())
+            ->filterByFkShopTheme($shopThemeTransfer->getIdShopTheme())
+            ->filterByStore($storeTransfer->getName())
             ->findOneOrCreate();
-        $shopThemeStorageEntity->setFkShopTheme($shopThemeTransfer->getIdShopThemeOrFail());
+
         $shopThemeStorageEntity->setData($shopThemeTransfer->getShopThemeData()->toArray(true, true));
         $shopThemeStorageEntity->save();
     }
