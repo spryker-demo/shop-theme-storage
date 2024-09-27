@@ -90,4 +90,14 @@ class ShopThemeStorageConfig extends AbstractBundleConfig
      * @var string
      */
     public const SHOP_THEME_RESOURCE_NAME = 'shop_theme';
+
+    /**
+     * Specification:
+     * - Queue name as used for processing config container configuration messages
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const SHOP_THEME_SYNC_STORAGE_QUEUE = 'sync.storage.shop_theme';
 }
