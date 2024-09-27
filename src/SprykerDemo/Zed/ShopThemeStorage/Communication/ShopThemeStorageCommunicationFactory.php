@@ -13,9 +13,9 @@ use SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageDependencyProvider;
 
 class ShopThemeStorageCommunicationFactory extends AbstractCommunicationFactory
 {
- /**
-  * @return \SprykerDemo\Zed\ShopTheme\Business\ShopThemeFacadeInterface
-  */
+    /**
+     * @return \SprykerDemo\Zed\ShopTheme\Business\ShopThemeFacadeInterface
+     */
     public function getShopThemeFacade(): ShopThemeFacadeInterface
     {
         return $this->getProvidedDependency(ShopThemeStorageDependencyProvider::FACADE_SHOP_THEME);

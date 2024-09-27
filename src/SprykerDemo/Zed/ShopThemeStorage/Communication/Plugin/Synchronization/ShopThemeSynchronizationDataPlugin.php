@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataBulkRepositoryPluginInterface;
-use SprykerDemo\Zed\ShopThemeStorage\ShopThemeStorageConfig;
+use SprykerDemo\Shared\ShopThemeStorage\ShopThemeStorageConfig;
 
 /**
  * @method \SprykerDemo\Zed\ShopThemeStorage\Persistence\ShopThemeStorageRepositoryInterface getRepository()
